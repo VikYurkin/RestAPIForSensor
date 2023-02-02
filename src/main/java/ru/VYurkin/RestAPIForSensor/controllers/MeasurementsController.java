@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.VYurkin.RestAPIForSensor.DTO.MeasurementDTO;
+import ru.VYurkin.RestAPIForSensor.DTO.MeasurementsDTO;
 import ru.VYurkin.RestAPIForSensor.models.Measurement;
 import ru.VYurkin.RestAPIForSensor.services.MeasurementsService;
 import ru.VYurkin.RestAPIForSensor.util.CastomErrorResponse;
@@ -34,8 +35,8 @@ public class MeasurementsController {
     }
 
     @GetMapping
-    public List<MeasurementDTO> getMeasurement(){
-       return measurementsService.findAll().stream().map(this::convertToMeasurementDTO).toList();
+    public MeasurementsDTO getMeasurement(){
+       return new MeasurementsDTO(measurementsService.findAll().stream().map(this::convertToMeasurementDTO).toList());
     }
 
     @GetMapping("/rainyDaysCount")
