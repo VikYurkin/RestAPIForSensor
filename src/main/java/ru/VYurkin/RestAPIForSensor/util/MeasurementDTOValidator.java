@@ -1,4 +1,4 @@
-package ru.VYurkin.RestAPIForSensor.util.forMeasurment;
+package ru.VYurkin.RestAPIForSensor.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

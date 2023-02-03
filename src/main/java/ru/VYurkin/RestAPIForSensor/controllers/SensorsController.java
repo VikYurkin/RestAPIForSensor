@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.VYurkin.RestAPIForSensor.DTO.SensorDTO;
 import ru.VYurkin.RestAPIForSensor.models.Sensor;
 import ru.VYurkin.RestAPIForSensor.services.SensorsService;
-import ru.VYurkin.RestAPIForSensor.util.CastomErrorResponse;
-import ru.VYurkin.RestAPIForSensor.util.forSensor.SensorDTOValidator;
-import ru.VYurkin.RestAPIForSensor.util.forSensor.SensorNotCreatedException;
+import ru.VYurkin.RestAPIForSensor.util.CustomErrorResponse;
+import ru.VYurkin.RestAPIForSensor.util.CustomNotCreatedException;
+import ru.VYurkin.RestAPIForSensor.util.SensorDTOValidator;
 import java.util.List;
 
 @RestController
@@ -42,7 +42,7 @@ public class SensorsController {
                         .append(" - ").append(error.getDefaultMessage())
                         .append(";");
             }
-            throw new SensorNotCreatedException(errorMsg.toString());
+            throw new CustomNotCreatedException(errorMsg.toString());
         }
 
         sensorsService.save(convertToSensor(sensorDTO));
@@ -50,8 +50,8 @@ public class SensorsController {
     }
 
     @ExceptionHandler
-    private ResponseEntity<CastomErrorResponse> handleException(SensorNotCreatedException e){
-        CastomErrorResponse response = new CastomErrorResponse(
+    private ResponseEntity<CustomErrorResponse> handleException(CustomNotCreatedException e){
+        CustomErrorResponse response = new CustomErrorResponse(
                 e.getMessage(),
                 System.currentTimeMillis()
         );

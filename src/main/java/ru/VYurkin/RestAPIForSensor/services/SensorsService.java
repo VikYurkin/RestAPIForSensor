@@ -7,7 +7,6 @@ import ru.VYurkin.RestAPIForSensor.models.Sensor;
 import ru.VYurkin.RestAPIForSensor.repositories.SensorsRepository;
 import java.util.Optional;
 
-
 @Service
 @Transactional(readOnly = true)
 public class SensorsService {

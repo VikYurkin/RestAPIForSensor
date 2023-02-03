@@ -12,9 +12,9 @@ import ru.VYurkin.RestAPIForSensor.DTO.MeasurementDTO;
 import ru.VYurkin.RestAPIForSensor.DTO.MeasurementsDTO;
 import ru.VYurkin.RestAPIForSensor.models.Measurement;
 import ru.VYurkin.RestAPIForSensor.services.MeasurementsService;
-import ru.VYurkin.RestAPIForSensor.util.CastomErrorResponse;
-import ru.VYurkin.RestAPIForSensor.util.forMeasurment.MeasurementDTOValidator;
-import ru.VYurkin.RestAPIForSensor.util.forMeasurment.MeasurementNotCreatedException;
+import ru.VYurkin.RestAPIForSensor.util.CustomErrorResponse;
+import ru.VYurkin.RestAPIForSensor.util.CustomNotCreatedException;
+import ru.VYurkin.RestAPIForSensor.util.MeasurementDTOValidator;
 import java.util.List;
 
 @RestController
@@ -55,15 +55,15 @@ public class MeasurementsController {
                         .append(" - ").append(error.getDefaultMessage())
                         .append(";");
             }
-            throw new MeasurementNotCreatedException(errorMsg.toString());
+            throw new CustomNotCreatedException(errorMsg.toString());
         }
         measurementsService.save(convertToMeasurement(measurementDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @ExceptionHandler
-    private ResponseEntity<CastomErrorResponse> handleException(MeasurementNotCreatedException e){
-        CastomErrorResponse response = new CastomErrorResponse(
+    private ResponseEntity<CustomErrorResponse> handleException(CustomNotCreatedException e){
+        CustomErrorResponse response = new CustomErrorResponse(
                 e.getMessage(),
                 System.currentTimeMillis()
         );
